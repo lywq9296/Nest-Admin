@@ -6,15 +6,17 @@ import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { BookModule } from './modules/book/book.module';
 import 'dotenv/config';
+import { User } from './modules/user/entities/user.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       host: process.env.HOST,
       port: +process.env.PORT,
-      username: process.env.USERNAME,
+      username: 'root',
       password: process.env.PASSWORD,
       type: 'mysql',
+      entities: [User],
       database: process.env.DATABASE,
       synchronize: true,
     }),
