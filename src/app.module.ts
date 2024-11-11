@@ -6,7 +6,7 @@ import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { BookModule } from './modules/book/book.module';
 import 'dotenv/config';
-import { User } from './modules/user/entities/user.entity';
+// import { User } from './modules/user/entities/user.entity';
 
 @Module({
   imports: [
@@ -16,8 +16,9 @@ import { User } from './modules/user/entities/user.entity';
       username: 'root',
       password: process.env.PASSWORD,
       type: 'mysql',
-      entities: [User],
+      // entities: [User],
       database: process.env.DATABASE,
+      autoLoadEntities: true, // 替代 entities 属性
       synchronize: true,
     }),
     UserModule,
