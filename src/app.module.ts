@@ -13,7 +13,7 @@ import 'dotenv/config';
     TypeOrmModule.forRoot({
       host: process.env.HOST,
       port: +process.env.PORT,
-      username: 'root',
+      username: process.env.ROOT,
       password: process.env.PASSWORD,
       type: 'mysql',
       // entities: [User],
