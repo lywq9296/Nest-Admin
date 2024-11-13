@@ -5,13 +5,14 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { AuthGuard } from './guard/auth.guard';
 import { UserModule } from '../user/user.module';
+import { JWT_SECRET_KEY } from './auth.jwt.secret';
 
 @Module({
   imports: [
     UserModule,
     JwtModule.register({
       global: true,
-      secret: 'abcdefg',
+      secret: JWT_SECRET_KEY,
       signOptions: { expiresIn: 24 * 60 * 60 + 's' },
     }), // token 的配置
   ],
