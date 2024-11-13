@@ -2,7 +2,7 @@ import { Body, Controller, Post, UseFilters } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from 'src/decorators/public.decorator';
 import { HttpExceptionFilter } from 'src/exceptions/http-exception.filter';
-import { error, success } from 'src/utils/login';
+import { wrapperResponse } from 'src/utils/response';
 
 @Controller('auth')
 export class AuthController {
@@ -12,9 +12,9 @@ export class AuthController {
   @Post('login')
   @UseFilters(new HttpExceptionFilter())
   login(@Body() params) {
-    return this.authService
-      .login(params.username, params.password)
-      .then((data) => success(data, '登录成功'))
-      .catch((err) => error(err.message));
+    return wrapperResponse(
+      this.authService.login(params.username, params.password),
+      '登录成功',
+    );
   }
 }
