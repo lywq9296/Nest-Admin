@@ -4,8 +4,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 const httpsOptions = {
-  key: fs.readFileSync(path.resolve(process.cwd(), '../https/nest-admin.key')),
-  cert: fs.readFileSync(path.resolve(process.cwd(), '../https/nest-admin.pem')),
+  key: fs.readFileSync(path.resolve(process.cwd(), './https/nest-admin.key')),
+  cert: fs.readFileSync(path.resolve(process.cwd(), './https/nest-admin.pem')),
 };
 
 async function bootstrap() {
