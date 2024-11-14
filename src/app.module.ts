@@ -7,6 +7,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { BookModule } from './modules/book/book.module';
 import 'dotenv/config';
 // import { User } from './modules/user/entities/user.entity';
+import { MenuModule } from './modules/menu/menu.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import 'dotenv/config';
     UserModule,
     AuthModule,
     BookModule,
+    MenuModule,
   ],
   controllers: [AppController],
   providers: [AppService],
