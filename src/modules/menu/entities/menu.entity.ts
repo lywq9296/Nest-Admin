@@ -1,26 +1,28 @@
 import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
 
-@Entity('')
+@Entity('menu')
 export class Menu {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  @Unique(['username'])
-  username: string;
+  @Unique(['path'])
+  path: string;
 
   @Column()
-  password: string;
+  @Unique(['name'])
+  name: string;
 
   @Column()
-  avatar: string;
+  redirect: string;
 
   @Column()
-  role: string;
+  meta: string;
 
   @Column()
-  nickname: string;
+  pid: number;
 
+  // 1-可用, 0-不可用
   @Column()
   active: number;
 }
