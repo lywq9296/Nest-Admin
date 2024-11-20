@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { MenuService } from './menu.service';
 import { wrapperResponse } from 'src/utils/response';
 
@@ -9,5 +9,10 @@ export class MenuController {
   @Get()
   async getAllMenu() {
     return wrapperResponse(await this.menuService.findAll(), '获取菜单成功');
+  }
+
+  @Post()
+  createMenu(@Body() body) {
+    return this.menuService.create(body);
   }
 }
