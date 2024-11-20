@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Menu } from './entities/menu.entity';
 import { CreateMenuDto } from './dto/create-menu.dto';
+import { UpdateMenuDto } from './dto/updata-menu.dto';
 
 @Injectable()
 export class MenuService {
@@ -22,5 +23,12 @@ export class MenuService {
     console.log(createMenuDto);
 
     return this.menuRepository.save(createMenuDto);
+  }
+
+  update(body: UpdateMenuDto) {
+    const id = body?.data?.id || body?.id;
+    const data = body?.data || body;
+
+    return this.menuRepository.update(id, data);
   }
 }
