@@ -33,4 +33,22 @@ export class BookService {
 
     return this.bookRepository.query(sql);
   }
+
+  async countBookList(getBookDto: GetBookDto) {
+    const title = getBookDto.title;
+    const author = getBookDto.author;
+
+    let where = 'where 1=1';
+    if (title) {
+      where += ` AND title LIKE '%${title}%'`;
+    }
+
+    if (author) {
+      where += ` AND author LIKE '%${author}%'`;
+    }
+
+    const sql = `select count(*) as count from book ${where}`;
+
+    return this.bookRepository.query(sql);
+  }
 }

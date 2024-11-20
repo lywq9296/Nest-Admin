@@ -1,6 +1,6 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { BookService } from './book.service';
-import { wrapperResponse } from 'src/utils/response';
+import { wrapperCountResponse } from 'src/utils/response';
 
 @Controller('book')
 export class BookController {
@@ -8,8 +8,9 @@ export class BookController {
 
   @Get()
   async getBookList(@Query() params) {
-    return wrapperResponse(
+    return wrapperCountResponse(
       this.bookService.getBookList(params),
+      this.bookService.countBookList(params),
       '获取图书列表成功',
     );
   }
