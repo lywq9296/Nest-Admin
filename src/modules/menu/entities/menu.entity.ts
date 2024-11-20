@@ -6,7 +6,7 @@ export class Menu {
   id: number;
 
   @Column()
-  @Unique(['path'])
+  // @Unique(['path'])
   path: string;
 
   @Column()
