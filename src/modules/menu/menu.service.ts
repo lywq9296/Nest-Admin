@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Menu } from './entities/menu.entity';
+import { MenuEntity } from './entities/menu.entity';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/updata-menu.dto';
 
 @Injectable()
 export class MenuService {
   constructor(
-    @InjectRepository(Menu)
-    private readonly menuRepository: Repository<Menu>,
+    @InjectRepository(MenuEntity)
+    private readonly menuRepository: Repository<MenuEntity>,
   ) {}
 
-  findAll(): Promise<Menu[]> | any {
+  findAll(): Promise<MenuEntity[]> | any {
     // return this.menuRepository.findBy({ active: 1 });
 
     const QUERY_ALL_SQL = `select * from menu where active = 1 order by id asc`;

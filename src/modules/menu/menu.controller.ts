@@ -8,16 +8,16 @@ export class MenuController {
 
   @Get()
   async getAllMenu() {
-    return wrapperResponse(await this.menuService.findAll(), '获取菜单成功');
+    return wrapperResponse(this.menuService.findAll(), '获取菜单成功');
   }
 
   @Post()
   async createMenu(@Body() body) {
-    return wrapperResponse(await this.menuService.create(body), '菜单创建成功');
+    return wrapperResponse(this.menuService.create(body), '菜单创建成功');
   }
 
   @Put()
   async updateMenu(@Body() body) {
-    return wrapperResponse(await this.menuService.update(body), '菜单更新成功');
+    return wrapperResponse(this.menuService.update(body), '菜单更新成功');
   }
 }
