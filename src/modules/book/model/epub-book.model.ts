@@ -1,7 +1,7 @@
 // import * as fs from 'fs';
 import * as path from 'path';
 import * as fse from 'fs-extra';
-import { unzip } from './epub-parse';
+import { parseRootFile, unzip } from './epub-parse';
 
 const TEMP_PATH = '.vben/tmp-book';
 
@@ -17,7 +17,7 @@ class EpubBook {
     this.size = file.size;
   }
 
-  parse() {
+  async parse() {
     // console.log('解析电子书', this.bookPath, this.file);
 
     // 1. 生成临时文件
@@ -25,11 +25,15 @@ class EpubBook {
     const tmpFile = path.resolve(tmpDir, this.filename);
     fse.copySync(this.bookPath, tmpFile);
 
-    // 2. epub 电子书解析
+    // 2. epub 电子书解压
     const tmpUnzipDirName = this.filename.replace('.epub', '');
     const tmpUnzipDir = path.resolve(tmpDir, tmpUnzipDirName);
     fse.mkdirpSync(tmpUnzipDir);
     unzip(this.bookPath, tmpUnzipDir);
+
+    // 3. epub 电子书解析 -- root file 解析
+    const rootFile = await parseRootFile(tmpUnzipDir);
+    console.log(rootFile);
 
     // last. 删除临时文件
     // fse.removeSync(tmpFile);

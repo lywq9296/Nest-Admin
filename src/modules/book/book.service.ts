@@ -61,7 +61,7 @@ export class BookService {
     fs.writeFileSync(destPath, file.buffer);
 
     // 电子书解析
-    this.parseBook(destPath, file);
+    await this.parseBook(destPath, file);
 
     return Promise.resolve().then(() => ({
       originalname: file.originalname,
@@ -72,9 +72,9 @@ export class BookService {
     }));
   }
 
-  parseBook(bookPath, file) {
+  async parseBook(bookPath, file) {
     const epub = new EpubBook(bookPath, file);
 
-    epub.parse();
+    await epub.parse();
   }
 }
