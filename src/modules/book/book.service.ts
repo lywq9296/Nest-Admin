@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { BookEntity } from './entities/book.entity';
 import { Repository } from 'typeorm';
 import { GetBookDto } from './dto/get-book.dto';
+import EpubBook from './model/epub-book.model';
 
 @Injectable()
 export class BookService {
@@ -56,15 +57,24 @@ export class BookService {
 
   async uploadBook(file) {
     const desDir = path.resolve(process.cwd(), process.env.UPLOAD_FILE_PATH); // 接收路径, 存储文件的地址
-    const desPath = path.resolve(desDir, file.originalname);
-    fs.writeFileSync(desPath, file.buffer);
+    const destPath = path.resolve(desDir, file.originalname);
+    fs.writeFileSync(destPath, file.buffer);
+
+    // 电子书解析
+    this.parseBook(destPath, file);
 
     return Promise.resolve().then(() => ({
       originalname: file.originalname,
       mimetype: file.mimetype,
       size: file.size,
-      path: desPath,
+      path: destPath,
       dir: desDir,
     }));
+  }
+
+  parseBook(bookPath, file) {
+    const epub = new EpubBook(bookPath, file);
+
+    epub.parse();
   }
 }
