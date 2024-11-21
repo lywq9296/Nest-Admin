@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
+import * as md5 from 'md5';
 
 @Injectable()
 export class UserService {
@@ -22,7 +23,7 @@ export class UserService {
   create(createUserDto: CreateUserDto): Promise<User> {
     const user = new User();
     user.username = createUserDto.username;
-    user.password = createUserDto.password;
+    user.password = md5(createUserDto.password);
     user.role = createUserDto.role;
     user.avatar = createUserDto.avatar;
     user.active = 1;

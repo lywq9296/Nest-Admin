@@ -19,7 +19,7 @@ export class AuthService {
     const user = await this.userService.findByUsername(username);
     const md5Password = md5(password).toUpperCase();
 
-    if (user.password !== md5Password) {
+    if (user.password.toUpperCase() !== md5Password) {
       throw new UnauthorizedException();
     }
 
