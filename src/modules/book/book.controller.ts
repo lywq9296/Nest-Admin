@@ -1,5 +1,3 @@
-import * as fs from 'fs';
-import * as path from 'path';
 import {
   Controller,
   Get,
@@ -38,19 +36,6 @@ export class BookController {
   ) {
     console.log(file);
 
-    const desDir = path.resolve(process.cwd(), process.env.UPLOAD_FILE_PATH); // 接收路径, 存储文件的地址
-    const desPath = path.resolve(desDir, file.originalname);
-    fs.writeFileSync(desPath, file.buffer);
-
-    return wrapperResponse(
-      Promise.resolve().then(() => ({
-        originalname: file.originalname,
-        mimetype: file.mimetype,
-        size: file.size,
-        path: desPath,
-        dir: desDir,
-      })),
-      '文件上传成功',
-    );
+    return wrapperResponse(this.bookService.uploadBook(file), '文件上传成功');
   }
 }

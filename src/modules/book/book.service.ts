@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+import * as path from 'path';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BookEntity } from './entities/book.entity';
@@ -50,5 +52,19 @@ export class BookService {
     const sql = `select count(*) as count from book ${where}`;
 
     return this.bookRepository.query(sql);
+  }
+
+  async uploadBook(file) {
+    const desDir = path.resolve(process.cwd(), process.env.UPLOAD_FILE_PATH); // 接收路径, 存储文件的地址
+    const desPath = path.resolve(desDir, file.originalname);
+    fs.writeFileSync(desPath, file.buffer);
+
+    return Promise.resolve().then(() => ({
+      originalname: file.originalname,
+      mimetype: file.mimetype,
+      size: file.size,
+      path: desPath,
+      dir: desDir,
+    }));
   }
 }
