@@ -34,7 +34,7 @@ export class BookController {
     )
     file: Express.Multer.File,
   ) {
-    console.log(file);
+    // console.log(file);
 
     return wrapperResponse(this.bookService.uploadBook(file), '文件上传成功');
   }

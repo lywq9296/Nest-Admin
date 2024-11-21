@@ -1,6 +1,7 @@
 // import * as fs from 'fs';
 import * as path from 'path';
 import * as fse from 'fs-extra';
+import { unzip } from './epub-parse';
 
 const TEMP_PATH = '.vben/tmp-book';
 
@@ -24,8 +25,15 @@ class EpubBook {
     const tmpFile = path.resolve(tmpDir, this.filename);
     fse.copySync(this.bookPath, tmpFile);
 
+    // 2. epub 电子书解析
+    const tmpUnzipDirName = this.filename.replace('.epub', '');
+    const tmpUnzipDir = path.resolve(tmpDir, tmpUnzipDirName);
+    fse.mkdirpSync(tmpUnzipDir);
+    unzip(this.bookPath, tmpUnzipDir);
+
     // last. 删除临时文件
-    fse.removeSync(tmpFile);
+    // fse.removeSync(tmpFile);
+    // fse.removeSync(tmpUnzipDirName);
   }
 }
 
