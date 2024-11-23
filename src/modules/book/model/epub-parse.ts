@@ -32,7 +32,7 @@ export async function parseContentOpf(unzipPath: string, filePath: string) {
 
   const data = await parseStringPromise(contentOpf, { explicitArray: false });
   const { metadata } = data.package;
-  // console.log(metadata);
+  console.log(metadata);
 
   const title = metadata['dc:title']; // 书名
   const creator = metadata['dc:creator']; // 作者
@@ -41,6 +41,17 @@ export async function parseContentOpf(unzipPath: string, filePath: string) {
   const coverMeta = metadata.meta.find((m) => m['$'].name === 'cover');
   // console.log(coverMeta);
   const coverId = coverMeta['$'].content;
+  const manifest = data.package.manifest.item;
+  const coverRes = manifest.find((m) => m['$'].id === coverId);
 
-  console.log(title, creator, language, publisher, coverId);
+  const dir = path.dirname(fullPath);
+  const cover = path.resolve(dir, coverRes['$'].href);
+
+  console.log(`电子书信息: 
+		书名: ${title}
+		作者: ${creator}
+		语种: ${language}
+		出版社: ${publisher}
+		封面: ${cover}
+		`);
 }
