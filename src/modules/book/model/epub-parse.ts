@@ -32,7 +32,7 @@ export async function parseContentOpf(unzipPath: string, filePath: string) {
 
   const data = await parseStringPromise(contentOpf, { explicitArray: false });
   const { metadata } = data.package;
-  console.log(metadata);
+  // console.log(metadata);
 
   const title = metadata['dc:title']; // 书名
   const creator = metadata['dc:creator']; // 作者
@@ -54,4 +54,15 @@ export async function parseContentOpf(unzipPath: string, filePath: string) {
 		出版社: ${publisher}
 		封面: ${cover}
 		`);
+
+  // 解析目录
+  await parseContent(dir, 'toc.ncx');
+}
+
+async function parseContent(contentDir: string, contentFilePath: string) {
+  const contentPath = path.resolve(contentDir, contentFilePath);
+  const contentXml = fs.readFileSync(contentPath, 'utf-8');
+  const data = await parseStringPromise(contentXml, { explicitArray: false });
+  const navMap = data.ncx.navMap.navPoint;
+  console.log(navMap);
 }
