@@ -59,7 +59,7 @@ export class BookService {
   async uploadBook(file) {
     const desDir = path.resolve(process.cwd(), process.env.UPLOAD_FILE_PATH); // 接收路径, 存储文件的地址
     const destPath = path.resolve(desDir, file.originalname);
-    fse.mkdirpSync(destPath);
+    fse.mkdirpSync(desDir);
     fs.writeFileSync(destPath, file.buffer);
 
     // 电子书解析
