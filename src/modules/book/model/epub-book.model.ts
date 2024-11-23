@@ -3,7 +3,8 @@ import * as path from 'path';
 import * as fse from 'fs-extra';
 import { parseContentOpf, parseRootFile, unzip } from './epub-parse';
 
-const TEMP_PATH = '.vben/tmp-book';
+const VBEN_PATH = '.vben';
+const TEMP_PATH = `${VBEN_PATH}/tmp-book`;
 
 class EpubBook {
   private readonly filename: string;
@@ -39,8 +40,9 @@ class EpubBook {
     const bookData = await parseContentOpf(tmpUnzipDir, rootFile);
 
     // last. 删除临时文件
-    fse.removeSync(tmpFile);
-    fse.removeSync(tmpUnzipDir);
+    // fse.removeSync(tmpFile);
+    // fse.removeSync(tmpUnzipDir);
+    fse.removeSync(VBEN_PATH);
 
     return bookData;
   }
