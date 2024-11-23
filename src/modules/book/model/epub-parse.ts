@@ -20,6 +20,7 @@ export async function parseRootFile(unzipPath) {
   // console.log(await parseStringPromise(containerXml, {}));
 
   const data = await parseStringPromise(containerXml, { explicitArray: false });
+
   const rootFile = data.container.rootfiles.rootfile['$']['full-path'];
   return rootFile;
 }
@@ -27,6 +28,7 @@ export async function parseRootFile(unzipPath) {
 export async function parseContentOpf(unzipPath: string, filePath: string) {
   // 获取 content.opf 路径
   const fullPath = path.resolve(unzipPath, filePath);
+
   const contentOpf = fs.readFileSync(fullPath, 'utf-8');
   // console.log(contentOpf);
 
@@ -35,7 +37,10 @@ export async function parseContentOpf(unzipPath: string, filePath: string) {
   // console.log(metadata);
 
   const title = metadata['dc:title']; // 书名
-  const creator = metadata['dc:creator']; // 作者
+  const creator =
+    typeof metadata['dc:creator'] === 'string'
+      ? metadata['dc:creator']
+      : metadata['dc:creator']['_']; // 作者
   const language = metadata['dc:language']; // 语种
   const publisher = metadata['dc:publisher']; // 出版社
   const coverMeta = metadata.meta.find((m) => m['$'].name === 'cover');
@@ -57,7 +62,17 @@ export async function parseContentOpf(unzipPath: string, filePath: string) {
 
   // 解析目录
   const rootDir = path.dirname(filePath);
-  return await parseContent(dir, 'toc.ncx', rootDir);
+  const content = await parseContent(dir, 'toc.ncx', rootDir);
+
+  return {
+    title,
+    creator,
+    language,
+    publisher,
+    cover,
+    content,
+    rootFile: filePath,
+  };
 }
 
 async function parseContent(

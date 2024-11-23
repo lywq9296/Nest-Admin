@@ -36,11 +36,13 @@ class EpubBook {
     // console.log(rootFile);
 
     // 4. epub 电子书 content opf 解析
-    await parseContentOpf(tmpUnzipDir, rootFile);
+    const bookData = await parseContentOpf(tmpUnzipDir, rootFile);
 
     // last. 删除临时文件
-    // fse.removeSync(tmpFile);
-    // fse.removeSync(tmpUnzipDirName);
+    fse.removeSync(tmpFile);
+    fse.removeSync(tmpUnzipDir);
+
+    return bookData;
   }
 }
 
