@@ -56,13 +56,30 @@ export async function parseContentOpf(unzipPath: string, filePath: string) {
 		`);
 
   // 解析目录
-  await parseContent(dir, 'toc.ncx');
+  const rootDir = path.dirname(filePath);
+  return await parseContent(dir, 'toc.ncx', rootDir);
 }
 
-async function parseContent(contentDir: string, contentFilePath: string) {
+async function parseContent(
+  contentDir: string,
+  contentFilePath: string,
+  rootDir: string,
+) {
   const contentPath = path.resolve(contentDir, contentFilePath);
   const contentXml = fs.readFileSync(contentPath, 'utf-8');
   const data = await parseStringPromise(contentXml, { explicitArray: false });
+
   const navMap = data.ncx.navMap.navPoint;
-  console.log(navMap);
+  const navData = navMap.map((nav) => {
+    const text = nav.navLabel.text;
+    const href = nav.content['$'].src;
+    return {
+      text,
+      href: `${href}/${rootDir}`,
+      id: nav['$'].id,
+      playOrder: +nav['$'].playOrder,
+    };
+  });
+
+  return navData;
 }
