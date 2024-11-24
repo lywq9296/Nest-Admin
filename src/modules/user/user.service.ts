@@ -16,8 +16,32 @@ export class UserService {
     return this.userRepository.findOneBy({ id });
   }
 
-  async findAll(): Promise<User[]> {
-    return await this.userRepository.find();
+  async findAll(query): Promise<User[]> {
+    const { id, username, active } = query;
+    let where = '1=1';
+
+    if (id) {
+      where += ` AND id='${id}'`;
+    }
+
+    if (username) {
+      where += ` AND username='${username}'`;
+    }
+
+    if (active !== undefined) {
+      where += ` AND active=${active}`;
+    }
+
+    let { page = 1, pageSize = 20 } = query;
+    if (page <= 0) {
+      page = 1;
+    }
+    if (pageSize <= 0) {
+      pageSize = 20;
+    }
+
+    const sql = `SELECT id, username, avatar, role, nickname, active FROM admin_user ${where} limit ${pageSize} offset ${(page - 1) * pageSize}`;
+    return await this.userRepository.query(sql);
   }
 
   create(createUserDto: CreateUserDto): Promise<User> {

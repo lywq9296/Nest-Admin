@@ -6,6 +6,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Query,
   Req,
 } from '@nestjs/common';
 import { UserService } from './user.service';
@@ -30,8 +31,8 @@ export class UserController {
   }
 
   @Get()
-  getAllUser() {
-    return this.userService.findAll();
+  getAllUser(@Query() query) {
+    return wrapperResponse(this.userService.findAll(query), '获取用户列表成功');
   }
 
   @Post()

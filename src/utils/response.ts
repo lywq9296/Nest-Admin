@@ -1,5 +1,3 @@
-import { error, success, successCount } from './login';
-
 export function wrapperResponse(p, msg) {
   return p
     .then((data) => success(data, msg))
@@ -13,4 +11,16 @@ export function wrapperCountResponse(dataPromise, countPromise, msg) {
       return successCount(data, count.count, msg);
     })
     .catch((err) => error(err.message));
+}
+
+function success(data, msg) {
+  return { code: 0, msg, data };
+}
+
+function successCount(data, count, msg) {
+  return { code: 0, msg, data, count };
+}
+
+function error(msg) {
+  return { code: -1, msg };
 }
