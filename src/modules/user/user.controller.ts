@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
   Query,
   Req,
@@ -36,8 +37,16 @@ export class UserController {
   }
 
   @Post()
-  create(@Body() body) {
-    return this.userService.create(body);
+  createUser(@Body() body) {
+    return wrapperResponse(this.userService.createUser(body), '新增用户成功');
+  }
+
+  @Patch()
+  updateUser(@Body() body) {
+    return wrapperResponse(
+      this.userService.updateUser(body),
+      '更新用户信息成功',
+    );
   }
 
   @Delete()

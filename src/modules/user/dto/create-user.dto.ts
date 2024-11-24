@@ -4,4 +4,5 @@ export class CreateUserDto {
   role: string;
   nickname: string;
   avatar: string;
+  active: number;
 }

@@ -12,7 +12,7 @@ export class UserService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  findOne(id: number): Promise<User> {
+  async findOne(id: number): Promise<User> {
     return this.userRepository.findOneBy({ id });
   }
 
@@ -44,15 +44,34 @@ export class UserService {
     return await this.userRepository.query(sql);
   }
 
-  create(createUserDto: CreateUserDto): Promise<User> {
+  async createUser(createUserDto: CreateUserDto): Promise<User> {
     const user = new User();
     user.username = createUserDto.username;
     user.password = md5(createUserDto.password);
     user.role = createUserDto.role;
+    user.nickname = createUserDto.nickname || createUserDto.username;
     user.avatar = createUserDto.avatar;
     user.active = 1;
 
     return this.userRepository.save(user);
+  }
+
+  async updateUser(data: CreateUserDto) {
+    const { nickname, active, username } = data;
+
+    const sql = [];
+
+    if (nickname) {
+      sql.push(`nickname='${nickname}'`);
+    }
+
+    if (active !== undefined) {
+      sql.push(`active=${active}`);
+    }
+
+    return this.userRepository.query(
+      `UPDATE admin_user SET ${sql.join(',')} WHERE username=${username}`,
+    );
   }
 
   remove(id: number): Promise<DeleteResult> {

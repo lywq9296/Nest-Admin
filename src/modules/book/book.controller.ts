@@ -8,7 +8,6 @@ import {
   ParseIntPipe,
   Patch,
   Post,
-  Put,
   Query,
   UploadedFile,
   UseInterceptors,
@@ -48,7 +47,7 @@ export class BookController {
     );
   }
 
-  @Put()
+  @Patch()
   updateBook(@Body() body) {
     return wrapperResponse(this.bookService.updateBook(body), '编辑电子书成功');
   }
