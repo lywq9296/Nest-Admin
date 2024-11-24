@@ -9,7 +9,6 @@ export function wrapperResponse(p, msg) {
 export function wrapperCountResponse(dataPromise, countPromise, msg) {
   return Promise.all([dataPromise, countPromise])
     .then((res) => {
-      console.log(res);
       const [data, [count]] = res;
       return successCount(data, count.count, msg);
     })

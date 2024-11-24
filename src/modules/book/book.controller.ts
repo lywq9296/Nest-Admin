@@ -29,6 +29,11 @@ export class BookController {
     );
   }
 
+  @Get(':id')
+  async getBook(@Param('id') id) {
+    return wrapperResponse(this.bookService.getBook(id), '获取图书成功');
+  }
+
   @Post()
   async insertBook(@Body() body) {
     return wrapperResponse(this.bookService.insertBook(body), '新增电子书成功');

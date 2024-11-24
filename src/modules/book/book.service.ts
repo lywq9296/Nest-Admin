@@ -57,6 +57,12 @@ export class BookService {
     return this.bookRepository.query(sql);
   }
 
+  async getBook(id) {
+    const sql = `SELECT * FROM books WHERE id = ${id}`;
+
+    return this.bookRepository.query(sql);
+  }
+
   async insertBook(createBookDto: CreateBookDto) {
     const {
       title,
