@@ -119,12 +119,12 @@ export class BookService {
       id,
       title,
       author,
-      fileName,
+      // fileName,
       categoryText,
-      cover,
+      // cover,
       language,
       publisher,
-      rootFile,
+      // rootFile,
       category,
     } = body;
 
@@ -135,23 +135,14 @@ export class BookService {
     if (author) {
       setSql.push(`author='${author}'`);
     }
-    if (fileName) {
-      setSql.push(`fileName='${fileName}'`);
-    }
     if (categoryText) {
       setSql.push(`categoryText='${categoryText}'`);
-    }
-    if (cover) {
-      setSql.push(`cover='${cover}'`);
     }
     if (language) {
       setSql.push(`language='${language}'`);
     }
     if (publisher) {
       setSql.push(`publisher='${publisher}'`);
-    }
-    if (rootFile) {
-      setSql.push(`rootFile='${rootFile}'`);
     }
     if (category) {
       setSql.push(`category='${category}'`);
