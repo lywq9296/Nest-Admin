@@ -13,4 +13,19 @@ export class ContentsService {
   async getContentsList() {
     return this.contentsRepository.find();
   }
+
+  async insertContent(body: ContentsEntity) {
+    const { fileName, navId, href, order, level, text, label, pid } = body;
+
+    return this.contentsRepository.insert({
+      fileName,
+      navId,
+      href,
+      order,
+      level,
+      text,
+      label,
+      pid,
+    });
+  }
 }

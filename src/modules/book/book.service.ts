@@ -34,7 +34,7 @@ export class BookService {
       where += ` AND author LIKE '%${author}%'`;
     }
 
-    const sql = `select * from book ${where} limit ${pageSize} offset ${(page - 1) * pageSize} `;
+    const sql = `select * from books ${where} limit ${pageSize} offset ${(page - 1) * pageSize} `;
 
     return this.bookRepository.query(sql);
   }
@@ -52,7 +52,7 @@ export class BookService {
       where += ` AND author LIKE '%${author}%'`;
     }
 
-    const sql = `select count(*) as count from book ${where}`;
+    const sql = `select count(*) as count from books ${where}`;
 
     return this.bookRepository.query(sql);
   }
@@ -70,7 +70,7 @@ export class BookService {
       category,
     } = createBookDto;
 
-    const sql = `INSERT INTO book(
+    const sql = `INSERT INTO books(
       fileName,
       cover,
       title,

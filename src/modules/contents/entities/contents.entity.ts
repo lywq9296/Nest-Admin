@@ -5,26 +5,26 @@ export class ContentsEntity {
   @PrimaryColumn()
   fileName: string;
 
-  @Column()
+  @Column({ nullable: true })
   // @Unique(['id'])
-  id: string;
+  id: string | null;
 
-  @Column()
+  @Column({ nullable: true })
   href: string;
 
-  @Column()
+  @Column({ nullable: true })
   order: number;
 
-  @Column()
+  @Column({ nullable: true })
   level: number;
 
-  @Column()
+  @Column({ nullable: true })
   text: string;
 
-  @Column()
+  @Column({ nullable: true })
   label: string;
 
-  @Column()
+  @Column({ nullable: true })
   pid: string;
 
   @PrimaryColumn()
