@@ -1,24 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
-import { User } from './entities/user.entity';
+import { UserEntity } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as md5 from 'md5';
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
   ) {}
 
-  async findOne(id: number): Promise<User> {
+  async findOne(id: number): Promise<UserEntity> {
     return this.userRepository.findOneBy({ id });
   }
 
-  async findAll(query): Promise<User[]> {
+  async findAll(query): Promise<UserEntity[]> {
     const { id, username, active } = query;
-    let where = '1=1';
+    let where = 'WHERE 1=1';
 
     if (id) {
       where += ` AND id='${id}'`;
@@ -44,8 +44,8 @@ export class UserService {
     return await this.userRepository.query(sql);
   }
 
-  async createUser(createUserDto: CreateUserDto): Promise<User> {
-    const user = new User();
+  async createUser(createUserDto: CreateUserDto): Promise<UserEntity> {
+    const user = new UserEntity();
     user.username = createUserDto.username;
     user.password = md5(createUserDto.password);
     user.role = createUserDto.role;
@@ -78,7 +78,7 @@ export class UserService {
     return this.userRepository.delete(id);
   }
 
-  findByUsername(username: string): Promise<User> {
+  findByUsername(username: string): Promise<UserEntity> {
     return this.userRepository.findOneBy({ username });
   }
 
