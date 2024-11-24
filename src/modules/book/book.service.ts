@@ -102,7 +102,7 @@ export class BookService {
     return this.bookRepository.query(sql);
   }
 
-  async updateBook(id) {
+  async deleteBookSoft(id) {
     // console.log('updateBook', id);
     const sql = `UPDATE books SET isDeleted = ${1} WHERE id = ${id}`;
     return this.bookRepository.query(sql);
@@ -111,6 +111,53 @@ export class BookService {
   async deleteBook(id) {
     // console.log('deleteBook', id);
     const sql = `DELETE from books WHERE id = ${id}`;
+    return this.bookRepository.query(sql);
+  }
+
+  async updateBook(body) {
+    const {
+      id,
+      title,
+      author,
+      fileName,
+      categoryText,
+      cover,
+      language,
+      publisher,
+      rootFile,
+      category,
+    } = body;
+
+    const setSql = [];
+    if (title) {
+      setSql.push(`title='${title}'`);
+    }
+    if (author) {
+      setSql.push(`author='${author}'`);
+    }
+    if (fileName) {
+      setSql.push(`fileName='${fileName}'`);
+    }
+    if (categoryText) {
+      setSql.push(`categoryText='${categoryText}'`);
+    }
+    if (cover) {
+      setSql.push(`cover='${cover}'`);
+    }
+    if (language) {
+      setSql.push(`language='${language}'`);
+    }
+    if (publisher) {
+      setSql.push(`publisher='${publisher}'`);
+    }
+    if (rootFile) {
+      setSql.push(`rootFile='${rootFile}'`);
+    }
+    if (category) {
+      setSql.push(`category='${category}'`);
+    }
+
+    const sql = `UPDATE books SET ${setSql.join(',')} WHERE id = ${id}`;
     return this.bookRepository.query(sql);
   }
 

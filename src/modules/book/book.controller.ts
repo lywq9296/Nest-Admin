@@ -8,6 +8,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Put,
   Query,
   UploadedFile,
   UseInterceptors,
@@ -40,11 +41,16 @@ export class BookController {
   }
 
   @Patch(':id')
-  async updateBook(@Param('id', ParseIntPipe) id) {
+  async deleteBookSoft(@Param('id', ParseIntPipe) id) {
     return wrapperResponse(
-      this.bookService.updateBook(id),
+      this.bookService.deleteBookSoft(id),
       '删除电子书成功(软删除)',
     );
+  }
+
+  @Put()
+  updateBook(@Body() body) {
+    return wrapperResponse(this.bookService.updateBook(body), '编辑电子书成功');
   }
 
   @Delete(':id')
