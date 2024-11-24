@@ -96,6 +96,16 @@ export class BookService {
     return this.bookRepository.query(sql);
   }
 
+  async updateBook(id) {
+    // console.log('updateBook', id);
+    return this.bookRepository.update(id, { isDeleted: 1 });
+  }
+
+  async deleteBook(id) {
+    // console.log('deleteBook', id);
+    return this.bookRepository.delete(id);
+  }
+
   async uploadBook(file) {
     const desDir = path.resolve(process.cwd(), process.env.UPLOAD_FILE_PATH); // 接收路径, 存储文件的地址
     const destPath = path.resolve(desDir, file.originalname);

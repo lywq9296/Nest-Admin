@@ -1,8 +1,12 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   ParseFilePipeBuilder,
+  ParseIntPipe,
+  Patch,
   Post,
   Query,
   UploadedFile,
@@ -30,9 +34,22 @@ export class BookController {
     return wrapperResponse(this.bookService.insertBook(body), '新增电子书成功');
   }
 
+  @Patch(':id')
+  async updateBook(@Param('id', ParseIntPipe) id) {
+    return wrapperResponse(
+      this.bookService.updateBook(id),
+      '删除电子书成功(软删除)',
+    );
+  }
+
+  @Delete(':id')
+  async deleteBook(@Param('id', ParseIntPipe) id) {
+    return wrapperResponse(this.bookService.deleteBook(id), '删除电子书成功');
+  }
+
   @Post('upload')
   @UseInterceptors(FileInterceptor('file')) // 接收参数为 file
-  updateBook(
+  uploadBook(
     @UploadedFile(
       new ParseFilePipeBuilder()
         .addFileTypeValidator({ fileType: /epub/ }) // 限制上传文件格式
