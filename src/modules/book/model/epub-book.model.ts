@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as fse from 'fs-extra';
 import {
   copyCoverImage,
+  copyUnzipBook,
   parseContentOpf,
   parseRootFile,
   unzip,
@@ -47,6 +48,9 @@ class EpubBook {
     // 5. 拷贝电子书封面图片
     const cover = await copyCoverImage(bookData, tmpDir);
     bookData.cover = cover;
+
+    // 6.拷贝解压后电子书
+    await copyUnzipBook(tmpUnzipDir, tmpUnzipDirName);
 
     // last. 删除临时文件
     // fse.removeSync(tmpFile);

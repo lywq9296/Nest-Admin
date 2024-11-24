@@ -116,3 +116,11 @@ export async function copyCoverImage(data, tmpDir) {
 
   return coverNewPath;
 }
+
+export async function copyUnzipBook(unzipDir, unzipDirName) {
+  const bookDir = path.resolve(NGINX_PATH, 'book', unzipDirName);
+
+  fse.mkdirpSync(bookDir);
+
+  fse.copySync(unzipDir, bookDir);
+}
