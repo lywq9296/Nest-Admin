@@ -28,5 +28,9 @@ export class ContentsEntity {
   pid: string;
 
   @PrimaryColumn()
+  @Column()
   navId: string;
+
+  @Column({ default: 0 })
+  isDeleted: 0 | 1;
 }

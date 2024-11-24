@@ -28,4 +28,12 @@ export class ContentsService {
       pid,
     });
   }
+
+  async delete(fileName) {
+    return this.contentsRepository.delete(fileName);
+  }
+
+  async deleteSoft({ fileName }) {
+    return this.contentsRepository.update(fileName, { isDeleted: 1 });
+  }
 }

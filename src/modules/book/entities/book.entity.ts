@@ -37,5 +37,5 @@ export class BookEntity {
   rootFile: string;
 
   @Column({ default: 0 })
-  isDeleted: number; // 1-已删除, 0-未删除
+  isDeleted: 0 | 1; // 1-已删除, 0-未删除
 }

@@ -98,12 +98,14 @@ export class BookService {
 
   async updateBook(id) {
     // console.log('updateBook', id);
-    return this.bookRepository.update(id, { isDeleted: 1 });
+    const sql = `UPDATE books SET isDeleted = ${1} WHERE id = ${id}`;
+    return this.bookRepository.query(sql);
   }
 
   async deleteBook(id) {
     // console.log('deleteBook', id);
-    return this.bookRepository.delete(id);
+    const sql = `DELETE from books WHERE id = ${id}`;
+    return this.bookRepository.query(sql);
   }
 
   async uploadBook(file) {
