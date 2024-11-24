@@ -2,6 +2,8 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as AdmZip from 'adm-zip';
 import * as XmlJs from 'xml2js';
+import * as fse from 'fs-extra';
+import { NGINX_PATH } from 'src/utils/const';
 
 const { parseStringPromise } = XmlJs;
 
@@ -97,4 +99,20 @@ async function parseContent(
   });
 
   return navData;
+}
+
+export async function copyCoverImage(data, tmpDir) {
+  const cover = data.cover;
+  if (!cover) return;
+
+  const coverDir = path.resolve(NGINX_PATH, 'cover');
+
+  fse.mkdirpSync(coverDir);
+
+  const coverPathName = cover.replace(tmpDir + '/', '');
+  const coverNewPath = path.resolve(coverDir, coverPathName);
+
+  fse.copySync(cover, coverNewPath);
+
+  return coverNewPath;
 }

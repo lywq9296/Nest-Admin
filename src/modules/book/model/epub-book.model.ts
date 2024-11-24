@@ -1,7 +1,12 @@
 // import * as fs from 'fs';
 import * as path from 'path';
 import * as fse from 'fs-extra';
-import { parseContentOpf, parseRootFile, unzip } from './epub-parse';
+import {
+  copyCoverImage,
+  parseContentOpf,
+  parseRootFile,
+  unzip,
+} from './epub-parse';
 
 const VBEN_PATH = '.vben';
 const TEMP_PATH = `${VBEN_PATH}/tmp-book`;
@@ -38,6 +43,10 @@ class EpubBook {
 
     // 4. epub 电子书 content opf 解析
     const bookData = await parseContentOpf(tmpUnzipDir, rootFile);
+
+    // 5. 拷贝电子书封面图片
+    const cover = await copyCoverImage(bookData, tmpDir);
+    bookData.cover = cover;
 
     // last. 删除临时文件
     // fse.removeSync(tmpFile);
