@@ -9,7 +9,7 @@ export class BookEntity {
   @Unique(['fileName'])
   fileName: string;
 
-  @Column()
+  @Column({ default: '' })
   cover: string;
 
   @Column()
@@ -35,25 +35,4 @@ export class BookEntity {
 
   @Column()
   rootFile: string;
-
-  @Column()
-  originalName: string;
-
-  @Column()
-  filePath: string;
-
-  @Column()
-  unzipPath: string;
-
-  @Column()
-  coverPath: string;
-
-  @Column()
-  createUser: string;
-
-  @Column()
-  createDt: number;
-
-  @Column()
-  updateDt: number;
 }

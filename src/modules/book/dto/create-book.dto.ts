@@ -3,6 +3,7 @@ export class CreateBookDto {
   author: string;
   fileName: string;
   categoryText: string;
+  category: number;
   cover: string;
   language: string;
   publisher: string;

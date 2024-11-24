@@ -58,7 +58,7 @@ export class BookService {
   }
 
   async insertBook(createBookDto: CreateBookDto) {
-    /* const {
+    const {
       title,
       author,
       fileName,
@@ -67,10 +67,33 @@ export class BookService {
       language,
       publisher,
       rootFile,
-    } = createBookDto; */
+      category,
+    } = createBookDto;
 
-    // const sql = `INSERT INTO book VALUES()`;
-    console.log(createBookDto);
+    const sql = `INSERT INTO book(
+      fileName,
+      cover,
+      title,
+      author,
+      publisher,
+      bookId,
+      categoryText,
+      language,
+      rootFile,
+      category
+    ) VALUES(
+      '${fileName}',
+      '${cover}',
+      '${title}',
+      '${author}',
+      '${publisher}',
+      '${fileName}',
+      '${categoryText}',
+      '${language}',
+      '${rootFile}',
+      '${category}'
+    )`;
+    return this.bookRepository.query(sql);
   }
 
   async uploadBook(file) {
