@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   ParseFilePipeBuilder,
@@ -22,6 +23,11 @@ export class BookController {
       this.bookService.countBookList(params),
       '获取图书列表成功',
     );
+  }
+
+  @Post()
+  async insertBook(@Body() body) {
+    return wrapperResponse(this.bookService.insertBook(body), '新增电子书成功');
   }
 
   @Post('upload')

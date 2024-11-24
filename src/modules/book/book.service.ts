@@ -7,6 +7,7 @@ import { BookEntity } from './entities/book.entity';
 import { Repository } from 'typeorm';
 import { GetBookDto } from './dto/get-book.dto';
 import EpubBook from './model/epub-book.model';
+import { CreateBookDto } from './dto/create-book.dto';
 
 @Injectable()
 export class BookService {
@@ -54,6 +55,22 @@ export class BookService {
     const sql = `select count(*) as count from book ${where}`;
 
     return this.bookRepository.query(sql);
+  }
+
+  async insertBook(createBookDto: CreateBookDto) {
+    /* const {
+      title,
+      author,
+      fileName,
+      categoryText,
+      cover,
+      language,
+      publisher,
+      rootFile,
+    } = createBookDto; */
+
+    // const sql = `INSERT INTO book VALUES()`;
+    console.log(createBookDto);
   }
 
   async uploadBook(file) {
