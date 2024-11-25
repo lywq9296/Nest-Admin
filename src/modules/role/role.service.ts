@@ -23,4 +23,13 @@ export class RoleService {
 
     return this.roleRepository.save(role);
   }
+
+  async updateRole(data: CreateRoleDto) {
+    return this.roleRepository.update(
+      { name: data.name },
+      {
+        remark: data.remark,
+      },
+    );
+  }
 }
