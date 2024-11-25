@@ -7,4 +7,7 @@ export class RoleEntity {
 
   @Column()
   name: string;
+
+  @Column()
+  remark: string;
 }

@@ -9,4 +9,8 @@ export class RoleService {
     @InjectRepository(RoleEntity)
     private readonly roleService: Repository<RoleEntity>,
   ) {}
+
+  async getAllRoles() {
+    return this.roleService.find();
+  }
 }
