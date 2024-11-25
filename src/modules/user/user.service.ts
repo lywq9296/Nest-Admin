@@ -57,7 +57,7 @@ export class UserService {
   }
 
   async updateUser(data: CreateUserDto) {
-    const { nickname, active, username } = data;
+    const { nickname, active, username, role } = data;
 
     const sql = [];
 
@@ -66,11 +66,15 @@ export class UserService {
     }
 
     if (active !== undefined) {
-      sql.push(`active=${active}`);
+      sql.push(`active='${active}'`);
+    }
+
+    if (role) {
+      sql.push(`role=${JSON.stringify(role)}`);
     }
 
     return this.userRepository.query(
-      `UPDATE admin_user SET ${sql.join(',')} WHERE username=${username}`,
+      `UPDATE admin_user SET ${sql.join(',')} WHERE username='${username}'`,
     );
   }
 

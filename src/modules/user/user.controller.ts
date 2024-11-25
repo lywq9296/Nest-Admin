@@ -45,7 +45,7 @@ export class UserController {
   updateUser(@Body() body) {
     return wrapperResponse(
       this.userService.updateUser(body),
-      '更新用户信息成功',
+      '编辑用户信息成功',
     );
   }
 
