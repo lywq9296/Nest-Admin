@@ -20,4 +20,12 @@ export class RoleController {
   updateRole(@Body() body) {
     return wrapperResponse(this.roleService.updateRole(body), '更新角色成功');
   }
+
+  @Post('roleMenu')
+  createRoleMenu(@Body() body) {
+    return wrapperResponse(
+      this.roleService.createRoleMenu(body),
+      '新增角色和菜单绑定关系成功',
+    );
+  }
 }

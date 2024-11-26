@@ -32,4 +32,10 @@ export class RoleService {
       },
     );
   }
+
+  async createRoleMenu({ roleId, menuId }) {
+    const sql = `INSERT INTO roles_menu(roleId,menuId) VALUES(${roleId},${menuId})`;
+
+    return this.roleRepository.query(sql);
+  }
 }
