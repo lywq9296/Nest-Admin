@@ -1,10 +1,34 @@
-import { Body, Controller, Get, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { RoleService } from './role.service';
 import { wrapperResponse } from 'src/utils/response';
 
 @Controller('role')
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
+
+  @Post('role_menu')
+  createRoleMenu(@Body() body) {
+    return wrapperResponse(
+      this.roleService.createRoleMenu(body),
+      '新增角色和菜单绑定关系成功',
+    );
+  }
+
+  @Get('role_Menu')
+  getRoleMenu(@Param('roleId', ParseIntPipe) roleId: number) {
+    return wrapperResponse(
+      this.roleService.getRoleMenu(roleId),
+      '获取角色和菜单绑定关系成功',
+    );
+  }
 
   @Get()
   getAllRoles() {
@@ -19,13 +43,5 @@ export class RoleController {
   @Patch()
   updateRole(@Body() body) {
     return wrapperResponse(this.roleService.updateRole(body), '更新角色成功');
-  }
-
-  @Post('roleMenu')
-  createRoleMenu(@Body() body) {
-    return wrapperResponse(
-      this.roleService.createRoleMenu(body),
-      '新增角色和菜单绑定关系成功',
-    );
   }
 }
