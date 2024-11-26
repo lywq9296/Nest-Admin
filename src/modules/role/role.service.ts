@@ -42,13 +42,16 @@ export class RoleService {
   }
 
   async getRoleMenu(roleId: number) {
-    /* const sql = `SELECT roleId,menuId from role_menu WHERE roleId = ${roleId}`;
+    /* const sql = `SELECT roleId,menuId FROM role_menu WHERE roleId = ${roleId}`;
     return this.roleMenuRepository.query(sql); */
 
     return this.roleMenuRepository.findBy({ roleId });
   }
 
-  async deleteRoleMenu(body) {
-    console.log(body);
+  async deleteRoleMenu(roleId: string) {
+    /* const sql = `DELETE FROM role_menu WHERE roleId = '${roleId}'`;
+    return this.roleMenuRepository.query(sql); */
+
+    return this.roleMenuRepository.delete(roleId);
   }
 }

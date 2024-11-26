@@ -34,7 +34,7 @@ export class RoleController {
   @Delete('role_menu')
   deleteRoleMenu(@Body() body) {
     return wrapperResponse(
-      this.roleService.deleteRoleMenu(body),
+      this.roleService.deleteRoleMenu(body.roleId),
       '删除角色和菜单绑定关系成功',
     );
   }
