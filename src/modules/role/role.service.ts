@@ -28,12 +28,10 @@ export class RoleService {
   }
 
   async updateRole(data: CreateRoleDto) {
-    return this.roleRepository.update(
-      { name: data.name },
-      {
-        remark: data.remark,
-      },
-    );
+    return this.roleRepository.update(data.id, {
+      remark: data.remark,
+      name: data.name,
+    });
   }
 
   async createRoleMenu({ roleId, menuId }) {
@@ -48,5 +46,9 @@ export class RoleService {
     return this.roleMenuRepository.query(sql); */
 
     return this.roleMenuRepository.findBy({ roleId });
+  }
+
+  async deleteRoleMenu(body) {
+    console.log(body);
   }
 }

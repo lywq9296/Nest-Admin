@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -27,6 +28,14 @@ export class RoleController {
     return wrapperResponse(
       this.roleService.getRoleMenu(roleId),
       '获取角色和菜单绑定关系成功',
+    );
+  }
+
+  @Delete('role_menu')
+  deleteRoleMenu(@Body() body) {
+    return wrapperResponse(
+      this.roleService.deleteRoleMenu(body),
+      '删除角色和菜单绑定关系成功',
     );
   }
 
