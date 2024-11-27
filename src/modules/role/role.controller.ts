@@ -23,7 +23,7 @@ export class RoleController {
     );
   }
 
-  @Get('role_Menu')
+  @Get('role_menu/:roleId')
   getRoleMenu(@Param('roleId', ParseIntPipe) roleId: number) {
     return wrapperResponse(
       this.roleService.getRoleMenu(roleId),
@@ -37,6 +37,11 @@ export class RoleController {
       this.roleService.deleteRoleMenu(body.roleId),
       '删除角色和菜单绑定关系成功',
     );
+  }
+
+  @Get(':id')
+  getRole(@Param('id', ParseIntPipe) roleId) {
+    console.log(roleId);
   }
 
   @Get()

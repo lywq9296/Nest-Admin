@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { MenuEntity } from './entities/menu.entity';
 import { CreateMenuDto } from './dto/create-menu.dto';
-import { UpdateMenuDto } from './dto/updata-menu.dto';
+import { UpdateMenuDto } from './dto/update-menu.dto';
 
 @Injectable()
 export class MenuService {
@@ -15,13 +15,15 @@ export class MenuService {
   findAll(): Promise<MenuEntity[]> | any {
     // return this.menuRepository.findBy({ active: 1 });
 
-    const QUERY_ALL_SQL = `select * from menu where active = 1 order by id asc`;
+    const QUERY_ALL_SQL = `select * from menus where active = 1 order by id asc`;
     return this.menuRepository.query(QUERY_ALL_SQL);
   }
 
-  create(createMenuDto: CreateMenuDto) {
-    console.log(createMenuDto);
+  async findMenus(id: number) {
+    return this.menuRepository.findBy({ id });
+  }
 
+  create(createMenuDto: CreateMenuDto) {
     return this.menuRepository.save(createMenuDto);
   }
 
