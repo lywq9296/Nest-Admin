@@ -6,9 +6,12 @@ import { AuthController } from './auth.controller';
 import { AuthGuard } from './guard/auth.guard';
 import { UserModule } from '../user/user.module';
 import { JWT_SECRET_KEY } from './auth.jwt.secret';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthEntity } from './entities/auth.entity';
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([AuthEntity]),
     UserModule,
     JwtModule.register({
       global: true,

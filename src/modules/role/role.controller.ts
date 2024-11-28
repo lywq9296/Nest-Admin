@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { RoleService } from './role.service';
 import { wrapperResponse } from 'src/utils/response';
@@ -28,6 +29,22 @@ export class RoleController {
     return wrapperResponse(
       this.roleService.getRoleMenu(roleId),
       '获取角色和菜单绑定关系成功',
+    );
+  }
+
+  @Get('auth')
+  getAuthList(@Query() query) {
+    return wrapperResponse(
+      this.roleService.getAuthList(query),
+      '获取权限数据成功',
+    );
+  }
+
+  @Post('auth')
+  createAuth(@Body() body) {
+    return wrapperResponse(
+      this.roleService.createAuth(body),
+      '获取权限数据成功',
     );
   }
 

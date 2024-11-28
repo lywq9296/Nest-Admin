@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { RoleMenuEntity } from './entities/role-menu.entity';
 import { MenuService } from '../menu/menu.service';
+import { AuthEntity } from '../auth/entities/auth.entity';
 
 @Injectable()
 export class RoleService {
@@ -13,6 +14,8 @@ export class RoleService {
     private readonly roleRepository: Repository<RoleEntity>,
     @InjectRepository(RoleMenuEntity)
     private readonly roleMenuRepository: Repository<RoleMenuEntity>,
+    @InjectRepository(AuthEntity)
+    private readonly authRepository: Repository<AuthEntity>,
     @Inject()
     private readonly menuService: MenuService,
   ) {}
@@ -90,5 +93,13 @@ export class RoleService {
     return this.roleMenuRepository.query(sql);
 
     // return this.roleMenuRepository.delete(roleId);
+  }
+
+  async getAuthList(query) {
+    return this.authRepository.find(query);
+  }
+
+  async createAuth(data) {
+    return this.authRepository.insert(data);
   }
 }
